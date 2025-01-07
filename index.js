@@ -1,7 +1,16 @@
-const app = require('./main');
+let express = require("express");
+const connection = require("./dbConfig");
+const Taskschema = require("./Model/Taskschema");
+let app = express();
+connection()
+app.post(('/'), async (req, res) => {
+  let task = new Taskschema({
+    name: "Limon"
+  })
+  let finalresult = await task.save()
+  res.status(201).send(finalresult)
+})
 
-const PORT = 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server will be running at http://localhost:${PORT}`)
+app.listen(5000, () => {
+  console.log("the server is running")
 })
